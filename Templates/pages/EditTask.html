@@ -114,7 +114,7 @@
 <script>
     // Convert ISO 8601 format to a format supported by datetime-local input
     var isoDate = "{{ task_data.due_date }}";
-    var formattedDate = isoDate.slice(0, 16);  // Adjust length as needed
+    var formattedDate = isoDate.slice(0, 16);  
     document.getElementById("due_date_input").value = formattedDate;
 </script>
 

@@ -94,28 +94,27 @@
 
     <script>
         $(document).ready(function () {
-            // Sample data received from the API
+          
             $.ajax({
-                url: 'http://127.0.0.1:8000/tasks/', // Replace with your actual API endpoint
+                url: 'http://127.0.0.1:8000/tasks/', 
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    // Process the received data and update the calendar
+            
                     var tasks = data.map(function (task) {
                         return {
                             title: task.title,
-                            start: moment(task.due_date).format('Y-MM-DD'),
-                            // Add more properties if needed
+                     
                         };
                     });
 
                     // Initialize FullCalendar with the fetched tasks
                     $('#calendar').fullCalendar({
                         events: tasks,
-                        // Add more FullCalendar options as needed
+                   
                     });
 
-                    // Process the received data and update the table
+                
                     var tableBody = $('#task-table-body');
                     $.each(data, function (index, task) {
                         var editUrl = '/tasks/' + task.id + '/edit/';
@@ -124,7 +123,7 @@
                             '<td>' + task.description + '</td>' +
                             '<td>' + moment(task.due_date).format('YYYY-MM-DD') + '</td>' +
                             '<td>' +
-                            // Add your actions here, e.g., edit and delete buttons
+                   
                             '<a class="btn btn-primary" href="' + editUrl + '">Edit</a>' +
                             '<button class="btn btn-danger" onclick="deleteTask(' + task.id + ')">Delete</button>' +
                             '</td>' +
@@ -146,11 +145,11 @@
             if (confirmDelete) {
                 // Make an AJAX request to delete the task
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/tasks/' + taskId + '/', // Replace with your delete URL
+                    url: 'http://127.0.0.1:8000/tasks/' + taskId + '/', 
                     method: 'DELETE',
                     success: function (response) {
                         console.log(response);
-                        // Optionally, you can remove the deleted task from the table
+                     
                         $('#task-' + taskId).remove();
                     },
                     error: function (error) {
