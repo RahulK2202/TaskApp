@@ -13,7 +13,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
 
     def post(self, request, *args, **kwargs):
-        print("hi")
+       
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
@@ -23,17 +23,17 @@ class TaskViewSet(viewsets.ModelViewSet):
 
 def edit_task_form(request, task_id):
         
-        print("reached", task_id)
+     
         task = get_object_or_404(Task, id=task_id)
         serializer = TaskSerializer(task)
-        print(serializer.data,"data is here")
+    
         return render(request, 'pages/EditTask.html', {'task_data': serializer.data})
 
 
 
 @api_view(['POST'])
 def createView(request):
-    print("coming to this")
+   
     email = request.session.get('user_email')
     
     try:
@@ -42,13 +42,12 @@ def createView(request):
         # Handle the case when the user does not exist
         return Response({"error": "User does not exist."})
 
-    print(user.id, "gottt")
-    print("create")
+  
    
     title = request.data.get('title')
     description = request.data.get('description')
     due_date = request.data.get('due_date')
-    print(title, description, due_date, "hhhhhhhhhhhhhhhhhhhhh")
+
 
     serializer = TaskSerializer(data={
         'user': user.id,
@@ -62,12 +61,6 @@ def createView(request):
         return redirect('user-home')
 
     return Response(serializer.errors)
-
-
-
-
-
-
 
 
 def CreateTask(request):

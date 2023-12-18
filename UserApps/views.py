@@ -55,7 +55,7 @@ class RegisterUserView(APIView):
             if serializer.is_valid():
                 # Generate and send OTP
                 otp = get_random_string(length=4, allowed_chars='1234567890')
-                print(otp, "got otp")
+                
 
                 send_mail(
                     'OTP for Registration',
@@ -95,16 +95,15 @@ class OtpUserView(APIView):
     def post(self, request):
         user_email = request.session.get('user_email')
         get_otp = request.POST.get('otp')
-        print(get_otp)
-        print(get_otp,"fsdsfs")
+       
         if get_otp:
            
             
             usr = AppUsers.objects.get(email=user_email)
-            print(usr,"i getting")
+          
 
             if int(get_otp) == UserOTP.objects.filter(user=usr).last().otp:
-                print("yesssssss")
+              
                 usr.is_active = True
                 usr.save()
                 messages.success(request, f'Account is created for {usr.email}')
