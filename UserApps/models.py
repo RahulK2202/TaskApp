@@ -66,6 +66,8 @@ class UserManager(BaseUserManager):
     
 class AppUsers(AbstractUser):
     email = models.EmailField(unique=True)
+    username = models.CharField(max_length=150, unique=True, blank=True, null=True)
+
     groups = models.ManyToManyField(
         Group,
         related_name='appusers_relations',
