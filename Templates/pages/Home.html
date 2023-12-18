@@ -104,17 +104,18 @@
                     var tasks = data.map(function (task) {
                         return {
                             title: task.title,
-                     
+                            start: moment(task.due_date).format('Y-MM-DD'),
+                         
                         };
                     });
 
-                    // Initialize FullCalendar with the fetched tasks
+             
                     $('#calendar').fullCalendar({
                         events: tasks,
-                   
+                 
                     });
 
-                
+             
                     var tableBody = $('#task-table-body');
                     $.each(data, function (index, task) {
                         var editUrl = '/tasks/' + task.id + '/edit/';
@@ -123,7 +124,7 @@
                             '<td>' + task.description + '</td>' +
                             '<td>' + moment(task.due_date).format('YYYY-MM-DD') + '</td>' +
                             '<td>' +
-                   
+                      
                             '<a class="btn btn-primary" href="' + editUrl + '">Edit</a>' +
                             '<button class="btn btn-danger" onclick="deleteTask(' + task.id + ')">Delete</button>' +
                             '</td>' +
@@ -145,11 +146,11 @@
             if (confirmDelete) {
                 // Make an AJAX request to delete the task
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/tasks/' + taskId + '/', 
+                    url: 'http://127.0.0.1:8000/tasks/' + taskId + '/', // Replace with your delete URL
                     method: 'DELETE',
                     success: function (response) {
                         console.log(response);
-                     
+                        // Optionally, you can remove the deleted task from the table
                         $('#task-' + taskId).remove();
                     },
                     error: function (error) {
