@@ -11,6 +11,13 @@
     <section class="register-form d-flex align-items-center justify-content-center" style="height: 100vh; background: url('https://c4.wallpaperflare.com/wallpaper/363/236/943/shade-wallpaper-preview.jpg') no-repeat center center fixed; background-size: cover;">
     <div class="container py-4 px-3 bg-white shadow rounded">
         <h3 class="text-center mb-3 fw-bold" style="color: #007bff;">Welcome Back!</h3>
+
+
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+        {% endif %}
         <form action="{% url 'user-login' %}" method="post">
             <div class="mb-3">
                 <label for="email" class="form-label">Email Address:</label>

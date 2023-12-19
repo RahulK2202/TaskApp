@@ -11,6 +11,7 @@ from UserApps.models  import *
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+    
 
     def post(self, request, *args, **kwargs):
        

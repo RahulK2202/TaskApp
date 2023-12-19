@@ -12,6 +12,8 @@ from django.utils.crypto import get_random_string
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.sessions.models import Session
+from django.contrib.auth.hashers import check_password
+
 # Create your views here.
 
 
@@ -24,14 +26,21 @@ class LoginUserView(APIView):
         return render(request, 'pages/Login.html')
     
     def post(self, request):
-        email = request.data.get('email')  # Assuming 'email' is the field in your form
+        email = request.data.get('email') 
+        password = request.data.get('password')  
 
         try:
             user = AppUsers.objects.get(email=email)
-            request.session['user_email'] = user.email
-            return redirect('user-home')
+            if check_password(password, user.password):
+             
+                request.session['user_email'] = user.email
+                return redirect('user-home')
+            else:
+             
+                return render(request, 'pages/Login.html', {'error_message': 'Invalid email or password'})
         except AppUsers.DoesNotExist:
-            return render(request, 'pages/Login.html', {'error_message': 'Invalid email'})
+       
+            return render(request, 'pages/Login.html', {'error_message': 'Invalid email or password'})
         
 
 

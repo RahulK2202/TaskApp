@@ -162,3 +162,4 @@ EMAIL_PORT = env('EMAIL_PORT', default=587, cast=int)
 EMAIL_USE_TLS = env('EMAIL_USE_TLS', default=True, cast=bool)
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+
