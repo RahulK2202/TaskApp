@@ -58,8 +58,8 @@ class RegisterUserView(APIView):
 
             # Check if the user already exists
             if AppUsers.objects.filter(email=email).exists():
-                return Response({'messages': 'User with this email already exists.'}, status=status.HTTP_400_BAD_REQUEST)
-
+                
+                return render(request, 'pages/Register.html', {'messages': 'User with this email already exists.'})
             serializer = AppUsersSerializer(data=request.data)
             if serializer.is_valid():
                 # Generate and send OTP
@@ -83,12 +83,13 @@ class RegisterUserView(APIView):
                 return redirect('user-otp')
 
         except BadHeaderError:
-            return Response({'messages': 'Invalid email header.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return render(request, 'pages/Register.html',{'messages': 'Invalid email header.'})
 
         except ValidationError as e:
-            return Response({'messages': f'Validation error: {str(e)}'}, status=status.HTTP_400_BAD_REQUEST)
+            return render(request, 'pages/Register.html', {'messages': f'Validation error: {str(e)}'})
 
-        return Response({'messages': 'Invalid data.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(request, 'pages/Register.html',{'messages': 'Invalid data.'})
 
     
 

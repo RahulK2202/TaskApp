@@ -41,8 +41,8 @@ def createView(request):
         user = AppUsers.objects.get(email=email)
     except AppUsers.DoesNotExist:
         # Handle the case when the user does not exist
-        return Response({"error": "User does not exist."})
-
+        
+        return render(request, 'pages/Login.html', {"error": "User does not exist."})
   
    
     title = request.data.get('title')
@@ -60,8 +60,9 @@ def createView(request):
     if serializer.is_valid():
         serializer.save()
         return redirect('user-home')
-
-    return Response(serializer.errors)
+    else:
+        error_message = "Task creation failed. Please check the form and try again."
+        return render(request, 'pages/CreateTask.html', {'error_message': error_message})
 
 
 def CreateTask(request):
