@@ -84,7 +84,7 @@ class AppUsers(AbstractUser):
     )
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = []
 
     objects = UserManager()
 
